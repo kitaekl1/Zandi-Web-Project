@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <jsp:useBean id="dao" class="com.member.cfmemberDAO" />
+    <jsp:useBean id="dao" class="com.member.cfmemberDAO"/>
     
     <%
     	String id = request.getParameter("mId");
-   		 boolean check = dao.idCheck(id);
+    	boolean check = dao.idCheck(id);
     %>
     
 <!DOCTYPE html>
