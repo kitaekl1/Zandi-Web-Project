@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.zandiproject.*, java.util.*, java.sql.Timestamp" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.concurrent.TimeUnit" %>
-<%@ page import="java.net.URLEncoder" %>
-
+<%@ page import="com.zandiproject.*, java.util.*, java.sql.Timestamp, java.text.SimpleDateFormat, java.util.concurrent.TimeUnit, java.net.URLEncoder, com.google.gson.Gson" %>
 <%
 int pageSize = 3;
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -93,7 +89,7 @@ function toggleBookmark(prCode, loginID) {
                 likeCountElement.textContent = response.likeCount;
                 // 북마크 버튼 텍스트 업데이트
                 var bookmarkButton = document.getElementById("bookmarkButton_" + prCode);
-                bookmarkButton.textContent = response.isBookmarked ? "북마크 해제" : "북마크";
+                bookmarkButton.textContent = response.isBookmarked ? "북마크 해제" : "북마크 추가";
             } else {
                 alert("북마크 처리에 실패하였습니다.");
             }
@@ -140,6 +136,9 @@ for (int i = 0; i < projectList.size(); i++) {
     
     // 프로젝트의 작성자와 현재 로그인한 사용자가 같은지 여부를 확인
     boolean isMyProject = loginID != null && loginID.equals(project.getPrId());
+    
+    // 북마크 상태 확인
+    boolean isBookmarked = dao.isBookmarked(project.getPrCode(), loginID);
 %>
 <tr>
     <td><%= project.getPrCode() %></td>
@@ -152,7 +151,7 @@ for (int i = 0; i < projectList.size(); i++) {
         // 내 프로젝트인 경우 북마크 버튼 표시하지 않음
         if (!isMyProject) {
         %>
-        <button id="bookmarkButton_<%= project.getPrCode() %>" onclick="toggleBookmark('<%= project.getPrCode() %>', '<%= loginID %>')">북마크</button>
+        <button id="bookmarkButton_<%= project.getPrCode() %>" onclick="toggleBookmark('<%= project.getPrCode() %>', '<%= loginID %>')"><%= isBookmarked ? "북마크 해제" : "북마크 추가" %></button>
         <%
         } else {
             // 내 프로젝트인 경우 북마크 버튼 대신에 '-' 표시
@@ -178,9 +177,9 @@ if (count > 0) {
         // 이전 페이지로 이동하는 링크 추가
         if (searchText.trim().isEmpty()) {
 %>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects?pageNum=<%= startPage - pageBlock %>">[이전]</a>
+    <a href="<%= request.getContextPath() %>/zandiaccount/login?pageNum=<%= startPage - pageBlock %>">[이전]</a>
 <%} else {%>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects?pageNum=<%= startPage - pageBlock %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>">[이전]</a>
+    <a href="<%= request.getContextPath() %>/zandiaccount/login?pageNum=<%= startPage - pageBlock %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>">[이전]</a>
 <%
         }
     }
@@ -190,14 +189,14 @@ if (count > 0) {
         if (i == currentPage) {
             // 현재 페이지인 경우 링크 없이 출력
 %>
- <%= i %>
+<%= i %>
 <%} else {
             // 다른 페이지인 경우 해당 페이지로 이동하는 링크 출력
             if (searchText.trim().isEmpty()) {
 %>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects.jsp?pageNum=<%= i %>" onclick="redirectToLogin()"><%= i %></a>
+    <a href="<%= request.getContextPath() %>/zandiaccount/login.jsp?pageNum=<%= i %>"><%= i %></a>
 <%} else {%>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects.jsp?pageNum=<%= i %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>"><%= i %></a>
+    <a href="<%= request.getContextPath() %>/zandiaccount/login.jsp?pageNum=<%= i %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>"><%= i %></a>
 <%
             }
         }
@@ -207,14 +206,16 @@ if (count > 0) {
         // 다음 페이지로 이동하는 링크 추가
         if (searchText.trim().isEmpty()) {
 %>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects.jsp?pageNum=<%= startPage + pageBlock %>">[다음]</a>
+    <a href="<%= request.getContextPath() %>/zandiaccount/login.jsp?pageNum=<%= startPage + pageBlock %>">[다음]</a>
 <%
         } else {
 %>
-    <a href="<%= request.getContextPath() %>/zandiProject/listProjects.jsp?pageNum=<%= startPage + pageBlock %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>">[다음]</a>
-<%}}}
+    <a href="<%= request.getContextPath() %>/zandiaccount/login.jsp?pageNum=<%= startPage + pageBlock %>&searchWhat=<%= searchWhat %>&searchText=<%= URLEncoder.encode(searchText, "UTF-8") %>">[다음]</a>
+<%
+}
+}
+}
 %>
-
 <!-- 검색창 -->
 <form action="<%= request.getContextPath() %>/zandiaccount/login.jsp" method="get" onsubmit="return validateSearch(this);">
     <select name="searchWhat">
@@ -224,6 +225,5 @@ if (count > 0) {
     <input type="text" name="searchText" value="<%= searchText != null ? searchText : "" %>">
     <input type="submit" value="검색">
 </form>
-
 </body>
 </html>
