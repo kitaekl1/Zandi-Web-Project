@@ -38,7 +38,7 @@ foreign key(prId) references cf_member(mId)
 
 
 INSERT INTO cf_project (prCode, prName, prDescription, prTeam, prId, prCategory, prGoal, prCurrent, prLikecount, prStartdate, prEnddate)
-VALUES (12, 'í”„ë¡œì íŠ¸1', 'í”„ë¡œì íŠ¸ ì„¤ëª…', 'íŒ€1', 'ì•„ì´ë””1', 'ì¹´í…Œê³ ë¦¬1', 'ëª©í‘œ1', 'í˜„ì¬1', 10, TIMESTAMP '2024-05-31 00:00:00', TIMESTAMP '2024-06-30 00:00:00');
+VALUES (12, 'ÇÁ·ÎÁ§Æ®1', 'ÇÁ·ÎÁ§Æ® ¼³¸í', 'ÆÀ1', '¾ÆÀÌµğ1', 'Ä«Å×°í¸®1', '¸ñÇ¥1', 'ÇöÀç1', 10, TIMESTAMP '2024-05-31 00:00:00', TIMESTAMP '2024-06-30 00:00:00');
 
 
 create sequence cf_project_seq start with 1 
@@ -90,3 +90,11 @@ drop table cf_Comment;
 SELECT * FROM tabs;
 drop table dept01;
 commit;
+
+drop table cf_member;
+drop table cf_project;
+drop sequence cf_project_seq;
+drop table cf_likelist;
+drop table cf_announcement;
+drop table cf_comment;
+drop table cf_member;
