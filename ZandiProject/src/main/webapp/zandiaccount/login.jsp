@@ -82,49 +82,6 @@ function validateSearch(form) {
     return true;
 }
 
-function toggleBookmark(prCode, loginID) {
-    var bookmarkButton = document.getElementById("bookmarkButton_" + prCode);
-    bookmarkButton.disabled = true; // 클릭 중복 방지
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "<%= request.getContextPath() %>/zandiProject/toggleBookmark.jsp", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.isSuccess) {
-                    // 업데이트된 좋아요 수 가져와서 해당 프로젝트에 적용
-                    var likeCountElement = document.getElementById("likeCount_" + prCode);
-                    likeCountElement.textContent = response.likeCount;
-                    // 북마크 버튼 텍스트 업데이트
-                    bookmarkButton.textContent = response.isBookmarked ? "북마크 해제" : "북마크 추가";
-                } else {
-                    alert("북마크 처리에 실패하였습니다.");
-                }
-            } else {
-                alert("서버와의 통신에 문제가 발생했습니다.");
-            }
-            bookmarkButton.disabled = false; // 요청 완료 후 버튼 활성화
-        }
-    };
-
-    var params = "prCode=" + prCode + "&loginID=" + loginID;
-    xhr.send(params);
-}
-
-window.onload = function() {
-    // 페이지 로드 시 북마크 버튼 이벤트 핸들러 등록
-    var loginID = '<%= loginID %>';
-    var buttons = document.querySelectorAll("[id^='bookmarkButton_']");
-    buttons.forEach(function(button) {
-        var prCode = button.id.split("_")[1];
-        button.onclick = function() {
-            toggleBookmark(prCode, loginID);
-        };
-    });
-};
 </script>
 
 </head>
