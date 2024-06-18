@@ -141,5 +141,5 @@ if(endPage<pageCount){
 <input type="submit" value="검색">
 </form>
 </div>
-</body>
+</body> 
 </html>
