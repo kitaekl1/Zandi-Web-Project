@@ -129,7 +129,7 @@ public class BoardDAO {
 	        // close resources
 	    }
 	    return articleList;
-	}
+	} 
 
 	
 	/*
