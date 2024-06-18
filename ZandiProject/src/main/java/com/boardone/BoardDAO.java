@@ -127,7 +127,7 @@ public class BoardDAO {
 	        e.printStackTrace();
 	    } finally {
 	        // close resources
-	    }
+	    } 
 	    return articleList;
 	} 
 
