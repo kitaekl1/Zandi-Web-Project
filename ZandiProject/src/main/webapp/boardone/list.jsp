@@ -65,46 +65,34 @@ number = count-(currentPage-1)*pageSize;
     <td align="right"><a href="writeForm.jsp">글쓰기</a></td>
 </tr>
 </table>
-<%
-if(count==0){ // 글이 없을 경우
-%>
-<table width="700" border="1" cellpadding="0" cellspacing="0">
-<tr>
-    <td align="center">공지사항이 없습니다.</td>
-</tr>
-</table>
-<%} else{ //글이 있을 경우%>
-<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
-<tr height="30">
-    <td align="center" width="50">번호</td>
-    <td align="center" width="250">제목</td>
-    <td align="center" width="150">조회수</td>
-    <td align="center" width="50">작성일</td>
-</tr>
-<%
-for(int i=0;i<articleList.size();i++){
-    BoardVO article= (BoardVO)articleList.get(i);
-%>
-<tr height="30">
-    <td align="center" width="50"><%=number-- %></td> <!-- number-- : desc -->
-    
-    <td width="250">
-    <a href="content.jsp?num=<%=article.getaNum()%>&pageNum=<%=currentPage%>">
-    
-    <%=article.getaTitle() %></a>
-    </td>
-    
-    <td align="center" width="50">
-        <%=article.getaDate() %>
-    </td>
-    
-    <td align="center" width="100">
-        <%=article.getReadcount() %>
-    </td>
-</tr>
-<%} %>
-</table>
-<%} %>
+<% if (articleList == null || articleList.isEmpty()) { %>
+    <table width="700" border="1" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center" colspan="4">공지사항이 없습니다.</td>
+        </tr>
+    </table>
+<% } else { %>
+    <table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
+        <tr height="30">
+            <td align="center" width="50">번호</td>
+            <td align="center" width="250">제목</td>
+            <td align="center" width="100">작성일</td>
+            <td align="center" width="150">조회수</td>
+        </tr>
+        <% for (int i = 0; i < articleList.size(); i++) { %>
+            <tr height="30">
+                <td align="center" width="50"><%= number-- %></td>
+                <td width="250">
+                    <a href="content.jsp?num=<%= articleList.get(i).getaNum() %>&pageNum=<%= currentPage %>">
+                        <%= articleList.get(i).getaTitle() %>
+                    </a>
+                </td>
+                <td align="center" width="100"><%= articleList.get(i).getaDate() %></td>
+                <td align="center" width="150"><%= articleList.get(i).getReadcount() %></td>
+            </tr>
+        <% } %>
+    </table>
+<% } %>
 <!-- 페이징 처리 -->
 <%
 if(count>0){

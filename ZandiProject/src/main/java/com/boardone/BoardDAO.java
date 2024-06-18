@@ -102,11 +102,11 @@ public class BoardDAO {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-	    List<BoardVO> articleList = null;
+	    List<BoardVO> articleList = new ArrayList<>();
 
 	    try {
-	        con = getConnection(); 
-	        String sql = "SELECT * FROM (SELECT ROWNUM rnum, aNum, aTitle, aDate, aAnnounce " +
+	        con = getConnection();
+	        String sql = "SELECT * FROM (SELECT ROWNUM rnum, aNum, aTitle, TO_CHAR(aDate, 'YYYY-MM-DD') AS aDate, aAnnounce, readcount " +
 	                     "FROM (SELECT * FROM cf_announcement ORDER BY aNum DESC)) " +
 	                     "WHERE rnum >= ? AND rnum <= ?";
 	        pstmt = con.prepareStatement(sql);
@@ -114,28 +114,22 @@ public class BoardDAO {
 	        pstmt.setInt(2, end);
 
 	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            articleList = new ArrayList<BoardVO>(end - start + 1);
-	            do {
-	                BoardVO article = new BoardVO();
-	                article.setaNum(rs.getInt("num"));
-	                article.setaTitle(rs.getString("title"));
-	                article.setaDate(rs.getString("date"));
-	                article.setaAnnounce(rs.getString("announce"));
-	                article.setPass(rs.getString("pass"));
-	                //article.setPrCode(rs.getInt("prCode"));
-	                articleList.add(article);
-	            } while (rs.next());
+	        while (rs.next()) {
+	            BoardVO article = new BoardVO();
+	            article.setaNum(rs.getInt("aNum"));
+	            article.setaTitle(rs.getString("aTitle"));
+	            article.setaDate(rs.getString("aDate"));
+	            article.setaAnnounce(rs.getString("aAnnounce"));
+	            article.setReadcount(rs.getInt("readcount"));
+	            articleList.add(article);
 	        }
-	    } catch (SQLException ss) {
-	        ss.printStackTrace();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
 	    } finally {
-	        if (rs != null) try { rs.close(); } catch (SQLException s) { s.printStackTrace(); }
-	        if (pstmt != null) try { pstmt.close(); } catch (SQLException s) { s.printStackTrace(); }
-	        if (con != null) try { con.close(); } catch (SQLException s) { s.printStackTrace(); }
+	        // close resources
 	    }
 	    return articleList;
-	}// end getArticles
+	}
 	
 	/*
 	 * 글 상세보기
