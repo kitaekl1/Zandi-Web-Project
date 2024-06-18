@@ -12,6 +12,6 @@ public class MainControl {
 
     @RequestMapping(value = "/MainPage", method = RequestMethod.GET)
     public void mainPageGET() {
-        logger.info("¸ŞÀÎ ÆäÀÌÁö ÁøÀÔ");
+        logger.info("ë©”ì¸ í˜ì´ì§€ ì§„ì…");
     }
 }
