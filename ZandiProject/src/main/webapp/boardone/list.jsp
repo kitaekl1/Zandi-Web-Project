@@ -130,6 +130,7 @@ if(endPage<pageCount){
         }
     }
 }
+
 %>
 <!-- 검색창 -->
 <form action="list.jsp">

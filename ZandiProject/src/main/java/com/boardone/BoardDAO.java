@@ -131,6 +131,7 @@ public class BoardDAO {
 	    return articleList;
 	}
 	
+	
 	/*
 	 * 글 상세보기
 	 * 글 제목을 누르면 글 상세보기를 할 수 있다.
