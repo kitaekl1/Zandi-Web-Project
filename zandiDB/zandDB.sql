@@ -11,7 +11,7 @@ mSaddress varchar2(200),
 constraint cf_member_pk primary key(mId)
 );
 
-SELECT * FROM tabs;
+SELECT * FROM cf_member;
 
 select * from table;
 select * from cf_member;
@@ -79,10 +79,30 @@ cWritedate timestamp default current_timestamp,
 cUpdate timestamp default current_timestamp not null
 );
 
+
+create table cf_category(
+    seeAll number(1) not null,
+    prCategoryName varchar(30) not null,
+    prCategoryCode varchar(30) not null,
+    prCategoryParent varchar(30),
+   primary key(prCategoryCode),
+    foreign key(prCategoryParent) references cf_category(prCategoryCode)
+);
+
+
+insert into cf_ategory(prCategoryName,prCategoryCode) values(1, '전체보기' , '100');
+    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '게임' , '101');
+    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '음악' , '101');
+    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '도서' , '101');
+    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '영화' , '101');
+    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '애니메이션' , '101');
+
+
+
 ALTER TABLE cf_announcement
 MODIFY (a_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 select pr_startdate::timestamp;
-drop table cf_Member;
+drop table cf_category;
 drop table cf_Project;
 drop table cf_Announcement;
 drop table cf_Likelist;
@@ -91,10 +111,4 @@ SELECT * FROM tabs;
 drop table dept01;
 commit;
 
-drop table cf_member;
-drop table cf_project;
-drop sequence cf_project_seq;
-drop table cf_likelist;
-drop table cf_announcement;
-drop table cf_comment;
-drop table cf_member;
+alter table cf_project add prCategoryCode varchar(20) ;
