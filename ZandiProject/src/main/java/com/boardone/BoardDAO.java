@@ -121,7 +121,7 @@ public class BoardDAO {
 	            article.setaDate(rs.getString("aDate"));
 	            article.setaAnnounce(rs.getString("aAnnounce"));
 	            article.setReadcount(rs.getInt("readcount"));
-	            articleList.add(article);
+	            articleList.add(article); 
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
