@@ -130,7 +130,7 @@ public class BoardDAO {
 	    }
 	    return articleList;
 	}
-	
+
 	
 	/*
 	 * 글 상세보기
