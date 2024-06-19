@@ -35,7 +35,7 @@ prEnddate  TIMESTAMP(6),
 constraint cf_project_pk primary key(prCode),
 foreign key(prId) references cf_member(mId)
 );
-
+select * from cf_project;
 
 INSERT INTO cf_project (prCode, prName, prDescription, prTeam, prId, prCategory, prGoal, prCurrent, prLikecount, prStartdate, prEnddate)
 VALUES (12, '프로젝트1', '프로젝트 설명', '팀1', '아이디1', '카테고리1', '목표1', '현재1', 10, TIMESTAMP '2024-05-31 00:00:00', TIMESTAMP '2024-06-30 00:00:00');
@@ -90,14 +90,14 @@ create table cf_category(
 );
 
 
-insert into cf_ategory(prCategoryName,prCategoryCode) values(1, '전체보기' , '100');
-    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '게임' , '101');
-    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '음악' , '101');
-    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '도서' , '101');
-    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '영화' , '101');
-    insert into cf_ategory(prCategoryName,prCategoryCode,prCategoryParent) values(2, '애니메이션' , '101');
+insert into cf_category(seeAll,prCategoryName,prCategoryCode) values(1, '전체보기' , '100');
+    insert into cf_category(seeAll,prCategoryName,prCategoryCode,prCategoryParent) values(2, '게임' , '101','100');
+    insert into cf_category(seeAll,prCategoryName,prCategoryCode,prCategoryParent) values(2, '음악' , '102','100');
+    insert into cf_category(seeAll,prCategoryName,prCategoryCode,prCategoryParent) values(2, '도서' , '103','100');
+    insert into cf_category(seeAll,prCategoryName,prCategoryCode,prCategoryParent) values(2, '영화' , '104','100');
+    insert into cf_category(seeAll,prCategoryName,prCategoryCode,prCategoryParent) values(2, '애니메이션' , '105','100');
 
-
+select * from cf_category;
 
 ALTER TABLE cf_announcement
 MODIFY (a_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
