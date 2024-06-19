@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.assey.zandi.cfmemberMapper">
+
+  <!-- 회원 정보 삽입 -->
+  <insert id="insertMember" parameterType="com.assey.zandi.cfmemberVO">
+    INSERT INTO cfmember (
+      mId, mPw, mNickname, mName, mPhone, mMail, mPost, mAddress, mSaddress, prCode
+    ) VALUES (
+      #{mId}, #{mPw}, #{mNickname}, #{mName}, #{mPhone}, #{mMail}, #{mPost}, #{mAddress}, #{mSaddress}, #{prCode}
+    )
+  </insert>
+
+  <!-- 회원 정보 조회 -->
+  <select id="selectMemberById" parameterType="String" resultType="com.assey.zandi.cfmemberVO">
+    SELECT 
+      mId, mPw, mNickname, mName, mPhone, mMail, mPost, mAddress, mSaddress, prCode
+    FROM cfmember
+    WHERE mId = #{mId}
+  </select>
+
+  <!-- 모든 회원 정보 조회 -->
+  <select id="selectAllMembers" resultType="com.assey.zandi.cfmemberVO">
+    SELECT 
+      mId, mPw, mNickname, mName, mPhone, mMail, mPost, mAddress, mSaddress, prCode
+    FROM cfmember
+  </select>
+
+  <!-- 회원 정보 업데이트 -->
+  <update id="updateMember" parameterType="com.assey.zandi.cfmemberVO">
+    UPDATE cfmember
+    SET 
+      mPw = #{mPw},
+      mNickname = #{mNickname},
+      mName = #{mName},
+      mPhone = #{mPhone},
+      mMail = #{mMail},
+      mPost = #{mPost},
+      mAddress = #{mAddress},
+      mSaddress = #{mSaddress},
+      prCode = #{prCode}
+    WHERE mId = #{mId}
+  </update>
+
+  <!-- 회원 정보 삭제 -->
+  <delete id="deleteMember" parameterType="String">
+    DELETE FROM cfmember
+    WHERE mId = #{mId}
+  </delete>
+
+</mapper>

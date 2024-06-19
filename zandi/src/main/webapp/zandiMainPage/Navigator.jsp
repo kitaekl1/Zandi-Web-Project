@@ -28,7 +28,7 @@
           <div class="buttons">
             <c:if test="${loginID == null}">
               <div class="project_button mr-2">
-                <a href="<c:url value='/zandiBookmark/addProjectForm.jsp'/>" class="button is-small">프로젝트 올리기</a>
+                <a href="<c:url value='/zandiaccount/login.jsp'/>" class="button is-small">프로젝트 올리기</a>
               </div>
               <div class="login_button">
                 <a href="<c:url value='/zandiaccount/login.jsp'/>" class="button is-small">로그인 / 회원가입</a>

@@ -12,19 +12,19 @@ public class LoginControl {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginControl.class);
 	
-	//íšŒì›ê°€ì… í˜ì´ì§€ ì´ë™
+	//È¸¿ø°¡ÀÔ ÆäÀÌÁö ÀÌµ¿
 	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public void joinGET() {
 		
-		logger.info("íšŒì›ê°€ì… í˜ì´ì§€ ì§„ì…");
+		logger.info("È¸¿ø°¡ÀÔ ÆäÀÌÁö ÁøÀÔ");
 		
 	}
 	
-	//ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™
+	//·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public void loginGET() {
 		
-		logger.info("ë¡œê·¸ì¸ í˜ì´ì§€ ì§„ì…");
+		logger.info("·Î±×ÀÎ ÆäÀÌÁö ÁøÀÔ");
 		
 	}
 	

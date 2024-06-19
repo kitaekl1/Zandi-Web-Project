@@ -50,7 +50,16 @@ number = count - (currentPage - 1) * pageSize;
 <head>
 <meta charset="UTF-8">
 <title>프로젝트 목록</title>
-
+<style>
+  /* 네비게이터들 사이의 간격을 없애기 위해 추가 스타일 */
+  .navbar + .navbar {
+    margin-top: 0;
+  }
+  .second-navbar {
+    margin-top: 0;
+    padding-top: 0;
+  }
+</style>
 <script type="text/javascript">
 function validateSearch(form) {
     var searchText = form.searchText.value.trim();
@@ -63,7 +72,7 @@ function validateSearch(form) {
 
 window.onload = function() {
     // JSP 변수 값을 JavaScript 변수에 할당
-    var loginID = '<%= (String) session.getAttribute("loginID") %>';
+    var loginID = '<%= (String)session.getAttribute("loginID") %>';
 
     // 페이지가 로드된 후에 toggleBookmark 함수가 호출될 수 있도록 이벤트 핸들러 등록
     var buttons = document.querySelectorAll("[id^='bookmarkButton_']");
@@ -103,7 +112,7 @@ function toggleBookmark(prCode, loginID) {
 
 </head>
 <body>
-<% String loginID = (String) session.getAttribute("loginID"); %>
+<%@ include file="/zandiMainPage/Navigator.jsp"%>
 
 <h2>프로젝트 목록(전체 프로젝트 : <%= count %>)</h2>
 
@@ -135,6 +144,7 @@ for (int i = 0; i < projectList.size(); i++) {
     long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     
     // 프로젝트의 작성자와 현재 로그인한 사용자가 같은지 여부를 확인
+   
     boolean isMyProject = loginID != null && loginID.equals(project.getPrId());
     
     // 북마크 상태 확인
@@ -216,6 +226,7 @@ if (count > 0) {
 }
 }
 %>
+
 <!-- 검색창 -->
 <form action="<%= request.getContextPath() %>/zandiaccount/login.jsp" method="get" onsubmit="return validateSearch(this);">
     <select name="searchWhat">

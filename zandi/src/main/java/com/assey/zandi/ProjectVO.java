@@ -5,17 +5,18 @@ import java.sql.*;
 public class ProjectVO {
 
 
-	    private int prCode;
-	    private String prName;
-	    private String prDescription;
-	    private String prTeam;
-	    private String prId;
-	    private String prCategory;
-	    private String prGoal;
-		private String prCurrent;
-	    private int prLikecount;
-	    private Timestamp prStartdate;
-	    private Timestamp prEnddate;
+	    private int prCode;//프로젝트 번호
+	    private String prName;//프로젝트 명
+	    private String prDescription;//프로젝트 설명
+	    private String prTeam;//팀 
+	    private String prId;//아이디
+	    private String prCategoryCode;//카테고리 코드
+	    private String prCategory;//카테고리
+	    private String prGoal;//목표금액
+		private String prCurrent;//현제 금액
+	    private int prLikecount;//찜 수
+	    private Timestamp prStartdate;//후원 시작일
+	    private Timestamp prEnddate;//후원 종료일
 	    
 	    
 	    public Timestamp getPrStartdate() {
@@ -67,6 +68,14 @@ public class ProjectVO {
 		public void setPrCategory(String prCategory) {
 			this.prCategory = prCategory;
 		}
+		
+		public String getPrCategoryCode() {
+			return prCategoryCode;
+		}
+		public void setPrCategoryCode(String prCategoryCode) {
+			this.prCategoryCode = prCategoryCode;
+		}
+		//목표금액
 		public String getPrGoal() {
 			return prGoal;
 		}
@@ -86,5 +95,11 @@ public class ProjectVO {
 			this.prLikecount = prLikecount;
 		}
 
-
+		@Override
+		public String toString() {
+			return "ProjectVO [prCode=" + prCode + ", prName=" + prName + ", prDescription= " + prDescription + ", prTeam="
+					+ prTeam + ", prId= "+ prId + ", prCategory= "+ prCategory + ", prCategoryCode= "+ prCategoryCode +", prGoal= "+ prGoal + ", prCurrent= "
+					+ prCurrent + ", prLikecount "+prLikecount+"]";
+			
+		}
 }
