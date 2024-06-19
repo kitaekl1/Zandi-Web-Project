@@ -1,4 +1,4 @@
-package com.assey.ZandiProj;
+package com.assey.zandiProj;
 
 import java.text.DateFormat;
 import java.util.Date;
