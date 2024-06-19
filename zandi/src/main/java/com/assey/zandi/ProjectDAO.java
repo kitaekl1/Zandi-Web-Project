@@ -428,52 +428,83 @@ private static ProjectDAO instance = null;
 		    }
 		 
 	
-	 //dibsview.jsp에서 사용, 로그인 ID에 해당하는 사용자가 북마크한 프로젝트 목록을 데이터베이스에서 가져와서 ProjectVO 객체의 리스트로 반환
-	 public List<ProjectVO> getBookmarkedProjects(String loginID) {
-	        List<ProjectVO> bookmarkedProjects = new ArrayList<>();
-	        Connection con = null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
+	 //dibsview.jsp에서 사용, 사용자가 북마크한 프로젝트의 총 개수를 반환
+		 public int getBookmarkedProjectCount(String loginID) {
+			    Connection con = null;
+			    PreparedStatement pstmt = null;
+			    ResultSet rs = null;
+			    int count = 0;
 
-	        try {
-	            // 사용자가 북마크한 프로젝트 목록을 가져오는 쿼리
-	            String sql = "SELECT * FROM cf_likelist WHERE mId = ?";
-	            con = getConnection();
-	            pstmt = con.prepareStatement(sql);
-	            pstmt.setString(1, loginID);
-	            rs = pstmt.executeQuery();
+			    try {
+			        con = getConnection();
+			        String sql = "SELECT COUNT(*) FROM cf_likelist WHERE mId = ?";
+			        pstmt = con.prepareStatement(sql);
+			        pstmt.setString(1, loginID);
+			        rs = pstmt.executeQuery();
+			        if (rs.next()) {
+			            count = rs.getInt(1);
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    } finally {
+			        if (rs != null) {
+			            try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			        if (pstmt != null) {
+			            try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			        if (con != null) {
+			            try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			    }
 
-	            // 북마크한 각 프로젝트를 가져와서 리스트에 추가
-	            while (rs.next()) {
-	                // 프로젝트 코드로부터 프로젝트 정보를 가져오는 메서드가 있다고 가정합니다.
-	            	int prCode = rs.getInt("prCode");
-	            	ProjectVO project = getProjectInfo(prCode);
-	                bookmarkedProjects.add(project);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            // 리소스 정리
-	            if (rs != null) {
-	                try {
-	                    rs.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (pstmt != null) {
-	                try {
-	                    pstmt.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-
-	        return bookmarkedProjects;
-	    }
+			    return count;
+			}
 	 
-	 
+		 
+		 
+		//dibsview.jsp에서 사용, 사용자가 북마크한 프로젝트의 총 개수를 반환
+		 public List<ProjectVO> getBookmarkedProjects(String loginID, int startRow, int endRow) {
+			    List<ProjectVO> bookmarkedProjects = new ArrayList<>();
+			    Connection con = null;
+			    PreparedStatement pstmt = null;
+			    ResultSet rs = null;
+
+			    try {
+			        String sql = "SELECT * FROM (" +
+			                     "  SELECT ROWNUM AS rnum, prCode" +
+			                     "  FROM (SELECT prCode FROM cf_likelist WHERE mId = ? ORDER BY prCode DESC)" +
+			                     ") WHERE rnum BETWEEN ? AND ?";
+			        con = getConnection();
+			        pstmt = con.prepareStatement(sql);
+			        pstmt.setString(1, loginID);
+			        pstmt.setInt(2, startRow);
+			        pstmt.setInt(3, endRow);
+			        rs = pstmt.executeQuery();
+
+			        while (rs.next()) {
+			            int prCode = rs.getInt("prCode");
+			            ProjectVO project = getProjectInfo(prCode);
+			            bookmarkedProjects.add(project);
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    } finally {
+			        if (rs != null) {
+			            try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			        if (pstmt != null) {
+			            try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			        if (con != null) {
+			            try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+			        }
+			    }
+
+			    return bookmarkedProjects;
+			}
+		 
+		 
 	 	//글 상세보기 메소드 listProjects.jsp에서 getProject.jsp파일불러오기임 getProject.jsp작성해야함
 	 private ProjectVO getProjectInfo(int prCode) {
 		    ProjectVO project = null;
