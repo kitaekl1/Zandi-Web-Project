@@ -18,7 +18,7 @@
 <nav class="navbar is-white is-fixed-top">
    <div class="container">
     <div class="navbar-brand">
-      <a href="./MainPage.jsp" class="navbar-brand">
+      <a href="<c:url value='/zandiMainPage/MainPage.jsp' />" class="navbar-brand">
         <img src="<c:url value='/resources/img/zandiLogo.jpg' />" alt="ZANDI Logo">
       </a>
     </div>
@@ -42,7 +42,7 @@
                 <a href="<c:url value='/zandiaccount/myPage.jsp'/>" class="button is-small">마이페이지</a>
               </div>
               <div class="logout_button">
-                <a href="<c:url value='/zandiaccount/logout.jsp'/>" class="button is-small">로그아웃</a>
+           <a href="<c:url value='/logout'/>" class="button is-small">로그아웃</a>
               </div>
             </c:if>
           </div>
@@ -74,7 +74,7 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-         <form class="field has-addons" action="<c:url value='/zandi/search'/>" method="get">
+ 	 <form class="field has-addons" action="<c:url value='/zandi/search'/>" method="get">
         <div class="control">
             <input class="input" type="search" name="searchText" placeholder="프로젝트 검색" aria-label="Search">
         </div>
@@ -90,4 +90,3 @@
 </nav>
 </body>
 </html>
-
