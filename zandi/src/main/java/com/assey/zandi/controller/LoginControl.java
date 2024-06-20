@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.assey.zandi.service.AccountService;
+
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Controller
 @RequestMapping("/zandi")
@@ -20,6 +19,9 @@ public class LoginControl {
 
     @Autowired
     private DataSource dataSource;
+    
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginPage(HttpSession session) {
@@ -59,7 +61,7 @@ public class LoginControl {
             model.addAttribute("errorMessage", "비밀번호가 올바르지 않습니다.");
         } else {
             model.addAttribute("errorMessage", "로그인에 실패했습니다.");
-        }
+        }	
         return "zandiaccount/login"; // 인증 실패 시 다시 로그인 페이지로
     }
 
