@@ -11,6 +11,17 @@ public class AccountService {
     @Autowired
     private CfmemberRepository cfmemberRepository;
 
+    public void deleteAccount(String mId) {
+    	cfmemberRepository.deleteById(mId);
+    }
+
+    public boolean checkPassword(String mId, String password) {
+        CfmemberVO member = cfmemberRepository.findById(mId).orElse(null);
+        return member != null && member.getMPw().equals(password);
+    }
+    
+    
+    
     public void registerMember(CfmemberVO memberVO) {
         cfmemberRepository.save(memberVO);
     }
