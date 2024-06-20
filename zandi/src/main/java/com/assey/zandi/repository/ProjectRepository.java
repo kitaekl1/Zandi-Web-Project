@@ -1,12 +1,13 @@
 package com.assey.zandi.repository;
 
+import com.assey.zandi.project.ProjectVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.assey.zandi.project.ProjectVO;
-
-import java.util.List;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<ProjectVO, Integer> {
-    List<ProjectVO> findByPrNameContainingOrPrDescriptionContaining(String prName, String prDescription);
+public interface ProjectRepository extends JpaRepository<ProjectVO, Long> {
+    Page<ProjectVO> findByPrNameContainingOrPrDescriptionContaining(String prName, String prDescription, Pageable pageable);
+    long countByPrNameContainingOrPrDescriptionContaining(String prName, String prDescription);
 }
