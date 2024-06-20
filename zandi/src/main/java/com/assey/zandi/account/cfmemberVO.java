@@ -1,13 +1,17 @@
 package com.assey.zandi.account;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class cfmemberVO {
+@Table(name = "cf_member")
+public class CfmemberVO {
 
     @Id
     private String mId;
+    
     private String mPw;
     private String mNickname;
     private String mName;
@@ -16,7 +20,6 @@ public class cfmemberVO {
     private String mPost;
     private String mAddress;
     private String mSaddress;
-    private String prCode;
 
     // Getters and Setters
     public String getMId() {
@@ -89,13 +92,5 @@ public class cfmemberVO {
 
     public void setMSaddress(String mSaddress) {
         this.mSaddress = mSaddress;
-    }
-
-    public String getPrCode() {
-        return prCode;
-    }
-
-    public void setPrCode(String prCode) {
-        this.prCode = prCode;
     }
 }
