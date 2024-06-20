@@ -9,6 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations("classpath:/static/");
+                .addResourceLocations("/resources/");
+
+        // Add the following line to serve static files from src/main/webapp
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/", "classpath:/resources/", "classpath:/META-INF/resources/", "file:src/main/webapp/");
     }
 }
