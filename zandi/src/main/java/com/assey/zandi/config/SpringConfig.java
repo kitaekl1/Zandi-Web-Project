@@ -37,7 +37,7 @@ public class SpringConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.assey.zandi.account" });
+        em.setPackagesToScan(new String[] { "com.assey.zandi" });
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return em;
     }
