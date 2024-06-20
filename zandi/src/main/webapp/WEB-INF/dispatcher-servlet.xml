@@ -11,20 +11,24 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- MVC Annotation 기반 설정 활성화 -->
     <mvc:annotation-driven />
+    
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/**" location="/"/>
 
-    <!-- 전체 패키지 스캔 -->
     <context:component-scan base-package="com.assey.zandi" />
 
-    <!-- Java Config 설정 참조 -->
-    <context:annotation-config />
-    <context:component-scan base-package="com.assey.zandi.config" />
-
-    <!-- JSP ViewResolver 설정 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/" />
         <property name="suffix" value=".jsp" />
     </bean>
-
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <property name="messageConverters">
+        <list>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </list>
+    </property>
+</bean>
+    
 </beans>
