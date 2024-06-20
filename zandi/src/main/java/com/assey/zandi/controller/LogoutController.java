@@ -11,6 +11,6 @@ public class LogoutController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login"; // 로그아웃 후 로그인 페이지로 리디렉션
+        return "redirect:/zandiMainPage/MainPage.jsp"; // 로그아웃 후 메인 페이지로 리디렉션
     }
 }
