@@ -74,16 +74,16 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-        <form class="field has-addons">
-          <div class="control">
-            <input class="input" type="search" placeholder="프로젝트 검색" aria-label="Search">
-          </div>
-          <div class="control">
+         <form class="field has-addons" action="<c:url value='/zandi/search'/>" method="get">
+        <div class="control">
+            <input class="input" type="search" name="searchText" placeholder="프로젝트 검색" aria-label="Search">
+        </div>
+        <div class="control">
             <button class="button is-info" type="submit">
-              <img src="<c:url value='/resources/img/searchIcon.png'/>" alt="search Icon">
+                <img src="<c:url value='/resources/img/searchIcon.png'/>" alt="search Icon">
             </button>
-          </div>
-        </form>
+        </div>
+    </form>
       </div>
     </div>
   </div>
