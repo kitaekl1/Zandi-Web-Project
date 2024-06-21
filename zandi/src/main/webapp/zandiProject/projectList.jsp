@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/Nav.css' />">
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
     <style>
-    
-    	body {
-   		 font-family: 'Roboto', sans-serif;
-   		 display: flex;	
-   		 flex-direction: column;
-   		 align-items: center;
-		}
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .project-container {
             display: flex;
             flex-wrap: wrap;
@@ -29,7 +28,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .project-card img {
-            width: 100px;
+            width: 100%;
             height: 200px;
             object-fit: cover;
         }
@@ -54,25 +53,28 @@
             margin-top: 5px;
             color: #999;
         }
-		.pagination {
-    		display: flex;
-    		justify-content: center;
-    		margin-top: 20px;
-		}
-
-		.pagination a {
-    		margin: 0 5px;
-    		padding: 10px 15px;
-    		color: #333;
-		}
-		.pagination a.active {
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 10px 15px;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .pagination a.active {
             color: #fff;
-            background-color: #3273dc; /* Bulma 기본 파란색 */
+            background-color: #3273dc;
             border-color: #3273dc;
             font-weight: bold;
         }
         .pagination a:hover {
-            background-color: #3273dc; /* 호버 시 색상 변경 */
+            background-color: #3273dc;
             color: #fff;
         }
     </style>
@@ -99,11 +101,11 @@
         </c:forEach>
     </div>
 
-     <div class="pagination">
-        <c:if test="${currentPage > 1}">
-            <a href="<c:url value='/zandi/search?searchText=${searchText}&pageNum=${currentPage - 1}'/>">이전</a>
+    <div class="pagination">
+        <c:if test="${groupStartPage > 1}">
+            <a href="<c:url value='/zandi/search?searchText=${searchText}&pageNum=${groupStartPage - 1}'/>">이전</a>
         </c:if>
-        <c:forEach begin="1" end="${pageCount}" var="i">
+        <c:forEach begin="${groupStartPage}" end="${groupEndPage}" var="i">
             <c:choose>
                 <c:when test="${i == currentPage}">
                     <a href="<c:url value='/zandi/search?searchText=${searchText}&pageNum=${i}'/>" class="active">${i}</a>
@@ -113,8 +115,8 @@
                 </c:otherwise>
             </c:choose>
         </c:forEach>
-        <c:if test="${currentPage < pageCount}">
-            <a href="<c:url value='/zandi/search?searchText=${searchText}&pageNum=${currentPage + 1}'/>">다음</a>
+        <c:if test="${groupEndPage < pageCount}">
+            <a href="<c:url value='/zandi/search?searchText=${searchText}&pageNum=${groupEndPage + 1}'/>">다음</a>
         </c:if>
     </div>
 </body>
