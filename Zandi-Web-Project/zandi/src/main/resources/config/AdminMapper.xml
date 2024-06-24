@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.assey.zandi.mapper.AdminMapper">
+
+<insert id="projRegi" parameterType="com.assey.zandi.project.ProjectVO">
+    INSERT INTO cf_project (prCode, prName, prDescription, prTeam, prId, prCategory, prGoal, prCurrent, prLikecount, prStartdate, prEnddate)
+    VALUES (cf_project_seq.NEXTVAL, #{prName}, #{prDescription}, #{prTeam}, #{prId,jdbcType=VARCHAR}, #{prCategory}, #{prGoal}, #{prCurrent}, #{prLikecount}, #{prStartdate,jdbcType=TIMESTAMP}, #{prEnddate,jdbcType=TIMESTAMP})
+</insert>
+  
+<!-- 카테고리 리스트 조회 -->
+<select id="cateList" resultType="com.assey.zandi.project.CateVO">
+    SELECT * FROM categories
+</select>
+
+</mapper>

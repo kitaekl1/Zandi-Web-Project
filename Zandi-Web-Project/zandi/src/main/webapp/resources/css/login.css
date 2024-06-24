@@ -1,0 +1,59 @@
+        .logform {
+            background-color: #f0f0f0; /* 로그인 폼 배경색 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px; /* 폼 너비 */
+            margin-top: 100px; /* 네비게이션 바와의 간격 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #idSub, #passSub {
+            box-sizing: border-box;
+            width: 100%; /* 전체 너비 사용 */
+            height: 40px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #log, #acc {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        #log {
+            margin-top: 16px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #acc {
+            margin-top: 30px;
+            background-color: #74AC60;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }

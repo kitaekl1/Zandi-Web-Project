@@ -1,0 +1,52 @@
+@charset "UTF-8";
+.form_section{
+	width: 47.5%;
+    margin: 150px auto; /* 상단 마진을 더 크게 설정하고, 좌우 가운데 정렬 */
+    border: 1px solid #dbdde2;
+    background-color: #efefef;	
+}
+.form_section_title{
+	padding: 10px 17.5px;	
+}
+.form_section_title label{
+	display: block;
+    font-size: 16px; /* 폰트 크기를 조금 더 키움 */
+    font-weight: 800;
+}
+.form_section_content{
+	padding: 10px 17.5px;
+    border-top: 1px solid #dbdde2;	
+}
+.form_section_content input{
+	width: 96%; /* 입력 칸을 더 넓게 */
+    height: 25px; /* 높이를 크게 */
+    font-size: 16px; /* 폰트 크기 조정 */
+    padding: 5px 2%;
+}
+.form_section_content select{
+	width: 96%; /* 셀렉트 박스도 넓게 */
+    height: 35px; /* 높이 유지 */
+    font-size: 16px; /* 폰트 크기 조정 */
+    text-align-last: center;
+}
+
+
+/* 버튼 영역 */
+.btn_section{
+	text-align: center;
+	margin: 40px 0;
+}
+.btn{
+    min-width: 90px;
+    padding: 2px 15px;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 20px;
+}
+.enroll_btn{
+	background-color: #dbdde2;
+	margin-left:7.5px;
+}
+#enrollBtn:hover {
+    background-color: #c9cbd0;
+}
